@@ -1,0 +1,25 @@
+main {
+  width: 800px;
+  margin: 0 auto;
+}
+ul {
+  
+  display: flex;
+  justify-content: space-between;
+}
+li {
+  list-style-type: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+li:hover {
+  opacity: 0.8;
+}
+
+img{
+  width: 100px;
+  
+  
+
+}
