@@ -148,7 +148,7 @@ for (let i = 0; i<row2Card.length; i++) {
         img.src=row2Card[i][0];
      
         img.alt =row2Card[i][1];
-        
+        console.log(img.alt)
 
         li.classList.remove('back');
         li.classList.add('open');
@@ -236,9 +236,9 @@ for (let i = 0; i<row3Card.length; i++) {
     }
     if(row2card4.classList.contains('remove') && row2card5.classList.contains('remove')){
       if(i=== 4) {
-        img.src=row3Card[i][0];
+        img.src=row4Card[i][0];
   
-        img.alt =row3Card[i][1];
+        img.alt =row4Card[i][1];
  
 
         li.classList.remove('back');
@@ -410,71 +410,47 @@ for (let i = 0; i<row7Card.length; i++) {
  
 
 // 山札
-// 裏面
+
 const deckback = document.querySelector('.deckback');
 const img = document.createElement('img');
 img.src=cardback;
 deckback.appendChild(img);
 
-// 表面
-for(let i= 0; i<deck.length; i++){
- 
-  const deckopen = document.querySelector('.deckopen');
-    const li = document.createElement('li');
-    const img = document.createElement('img');
-      
-      li.appendChild(img);
-      deckopen.appendChild(li);
-    img.src=deck[i][0];
-    img.alt =deck[i][1];
 
-  li.classList.add('deckopen');
-  li.classList.add('dn');
-}
 
-let number = 28;
-let decknumber = 0;
-const addCount = () => {
-  const li = document.querySelectorAll('li');
-
-  li[number].classList.remove('dn');
-
-  number++;
-  decknumber++;
-
-  // function point(decknumber){
-  //   decknumber;
-  // };
   
-  if(decknumber>2) {
-    deckback.classList.add('disabled');
-    
-  }
-};
-deckback.addEventListener("click", addCount);
+  deckback.addEventListener('click', () => {
+  const deckopen = document.querySelector('.deckopen');
+  const li = document.createElement('li');
+  const img = document.createElement('img');
+    li.className='deckopen';
+    li.appendChild(img);
+    deckopen.appendChild(li);
+  img.src=deck[0][0];
+  img.alt =deck[0][1];
+});
+deckback.addEventListener('click', () => {
+  const deckopen = document.querySelector('.deckopen');
+  const li = document.createElement('li');
+  const img = document.createElement('img');
+    li.className='deckopen';
+    li.appendChild(img);
+    deckopen.appendChild(li);
+  img.src=deck[1][0];
+  img.alt =deck[1][1];
+});
 
-// function countUp(count) {
-   
-//     decknumber -= count;
-//     console.log(decknumber);
-//      point(decknumber);
-//   }
 
 
 
-
-
-
-
-// 13になるカードを消去
 let cols = document.querySelectorAll('li');
 
 
-for (let i = 0; i < 51; i++) {
+for (let i = 0; i < 27; i++) {
 cols[i].addEventListener('click', () => {
  
 
-      if(cols[i].classList.contains('open') || cols[i].classList.contains('deckopen')){
+      if(cols[i].classList.contains('open')){
     
         cols[i].classList.toggle('choice');
         
@@ -484,96 +460,53 @@ cols[i].addEventListener('click', () => {
           
    
     for(let key of Object.keys(el)) {
- 
+      console.log(key);
  
                          if(key > 1){
                           
                            break;
-                          }else{
-
-                          
+                          }
                          
-                          // キング1枚の場合
                           if(parseInt(el[0].alt) ===13){
-                            if(choice[0].classList.contains('deckopen')) {
-                              choice[0].classList.add('dn');
-                              decknumber -= 1;
-                              deckback.classList.remove('disabled');
-                              
-                              
-                            }
                      
                            
                             choice[0].classList.add('remove');
                             choice[0].classList.remove('choice');
-
-
-                              //  2枚で13の場合
+                            
+                            break;
+                           
+                      
                           }else{
                             
                             let sum = 0;
                             sum = parseInt(el[0].alt);
-                            
                             sum += parseInt(el[key].alt);
-                           
 
-                              
+
                                if(sum === 13) {
-                                  if(choice[0].classList.contains('deckopen') && choice[1].classList.contains('deckopen')) {
-                                    choice[0].classList.add('dn');
-                                    choice[1].classList.add('dn');
-                                    choice[0].classList.remove('choice');
-                                    choice[1].classList.remove('choice');
-                                    decknumber -= 2;
-                                    deckback.classList.remove('disabled');
-                                    
-                                    el=[];
-                                    
-
-                                    }else if(choice[0].classList.contains('deckopen')) {
-                                    choice[0].classList.add('dn');
-                                    choice[0].classList.remove('choice');
-                                    choice[1].classList.add('remove');
-                                    choice[1].classList.remove('choice');
-                                    decknumber -= 1;
-                                    deckback.classList.remove('disabled');
-                                    
-                                    el=[];
-                                  
-                                    
-                                    }else if(choice[1].classList.contains('deckopen')) {
-                                      choice[1].classList.add('dn');
-                                      choice[1].classList.remove('choice');
-                                      choice[0].classList.add('remove');
-                                      choice[0].classList.remove('choice');
-                                      decknumber -= 1;
-                                      deckback.classList.remove('disabled');
-                                      
-                                      el=[];
-                                     
-
-                                    }else{
-                                      
-                                      choice[0].classList.add('remove');
-                                      choice[1].classList.add('remove');
-                                      choice[0].classList.remove('choice');
-                                      choice[1].classList.remove('choice');
-
-                                }
-
+                               
+                                 
+                                 choice[0].classList.add('remove');
+                                 choice[1].classList.add('remove');
+                                 choice[0].classList.remove('choice');
+                                 choice[1].classList.remove('choice');
+           
+                                 break;
                           }
                             }
                           }
-                          }
 
         }
-
+    
+    
+          
+    
+          
+        
       }
     });
   }
-
- 
-
+   
 
 
 
@@ -581,4 +514,66 @@ cols[i].addEventListener('click', () => {
 
 
 
+
+
+// // 13になるカードを除去
+//   let cols = document.querySelectorAll('li');
+//     function onPageLoad() {
+//       for (let i = 0; i < 27; i++) {
+//         cols[i].addEventListener('click', ListItemClick, false);
+       
+//       }
+//     }
+    
+//     function ListItemClick(event) {
+//       if(this.classList.contains('open')){
+
+//         this.classList.toggle('choice');
+//         const img = document.querySelectorAll('li> img');
+        
+  
+
+          
+            
+//             let el = document.querySelectorAll(".choice >img");
+//             let choice = document.querySelectorAll('.choice');
+            
+//            Object.keys(el).forEach(function(key) {
+//              if(key > 1){return;}
+//               if(parseInt(el[0].alt) ===13){
+         
+                
+//                 choice[0].classList.add('remove');
+                
+//                 return;
+               
+          
+//               }else{
+//                 let sum = parseInt(el[0].alt);
+               
+                
+//                    sum += parseInt(el[key].alt);
+               
+//                    console.log(sum);
+            
+//                    if(sum === 13) {
+                     
+//                     //  el[0].style.visibility = "hidden";
+//                     //  el[1].style.visibility = "hidden";
+//                      choice[0].classList.add('remove');
+//                      choice[1].classList.add('remove');
+// return;
+                   
+//               }
+//                 }
+//               }, el);
+  
+          
+  
+          
+//         }
+//       }
+
+  
+// onPageLoad();
 

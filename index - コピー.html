@@ -1,22 +1,12 @@
-<!DOCTYPE html>
-<html lang="">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ピラミッド（トランプゲーム）</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-  <main>
-    <ul class="row1">
-      <!-- <li value="1" class="s1"><img src="img/torannpu-illust1.png"></li>
-      <li value="12" class="s12"><img src="img/torannpu-illust12.png"></li>
-      <li value="13" class="s13"><img src="img/torannpu-illust13.png"></li>
-      <li value="12" class="s12"><img src="img/torannpu-illust12.png"></li>
-      <li value="12" class="s12"><img src="img/torannpu-illust12.png"></li> -->
-      
-      </ul>
-  </main>
-  <script src="js/script.js"></script>
-</body>
-</html>
+// 要素を取得
+const counter = document.getElementById("counter");
+
+const addCount = () => {
+ //文字列を数値に変換
+ let num = parseInt(counter.textContent, 10);
+ //１追加する
+ counter.textContent = num + 1;
+};
+
+//addEventListenerで登録
+counter.addEventListener("click", addCount);
