@@ -4,41 +4,91 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ピラミッド（トランプゲーム）</title>
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Noto+Sans+JP:400,700" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <!-- <div id="open">詳細を見る</div> -->
+
+<div id="mask"></div>
+
+<section id="modal">
+  <div class="title">Pyramid</div>
+  <p>手札の最大枚数を選択してください！<br>
+    (最大枚数が多いほど簡単になります)<br>
+    ※選択し直した場合、エラーとなります。
+  </p>
+  <form>
+  <select name="maxcard" onchange="myfunc(this.value)">
+    <option value="">選択してください</option>
+    <option value="1">1枚</option>
+    <option value="2">2枚</option>
+    <option value="3">3枚</option>
+    <option value="4">4枚</option>
+    <option value="5">5枚</option>
+    <option value="6">6枚</option>
+    <option value="7">7枚</option>
+    <option value="8">8枚</option>
+    <option value="9">9枚</option>
+    <option value="10">10枚</option>
+    </select>
+    <p>枚数を選択すると、スタートボタンが押せます。</p>
+    <p>ルールは、スタートボタンを押してからご覧いただけます。</p>
+  </form>
+  <div id="start" class="inactive">
+    スタート
+  </div>
+</section>
+<div class="total">
+
+
+<div>
   <main>
-    <ul class="row1">
+    <ul class="row7">
      
       </ul>
-    <ul class="row2">
-     
-      </ul>
-      <ul class="row3">
-     
-      </ul>
-      <ul class="row4">
+    <ul class="row6">
      
       </ul>
       <ul class="row5">
      
       </ul>
-      <ul class="row6">
+      <ul class="row4">
      
       </ul>
-      <ul class="row7">
+      <ul class="row3">
+     
+      </ul>
+      <ul class="row2">
+     
+      </ul>
+      <ul class="row1">
      
       </ul>
     </main>
-<div class="deck">
+    <div class="deck">
       <div class="deckback"></div>
       <ul class="deckopen">
-
       </ul>
      
-    
+    </div>
+  </div>
+
+  <div id="explainbtn">ルール説明</div>
+  <div class="explain">
+    <div class="ruletitle">ルール説明</div>
+    <ul>
+      <li>「K（キング）」または2枚のカードの合計が13の組み合わせを選択し、消化していきます。</li>
+      <li>上に重なっている2枚のカードが消化されたら、選択して表面にできます。<br>
+      ※仕様上、表面にした際、そのまま選択状態となります。「K（キング）」だった場合、そのまま消化されます。</li>
+      <li>場に消化できるカードがなかったら、山札からカードを引きます。（最初に設定したカードの枚数まで引くことができます)</li>
+      <li>山札から引いたカードと場のカードの組み合わせでも消化できます。</li>
+      <li>山札から引いたカード同士でも消化できます。</li>
+      <li>場のカードを全て消化できたらクリアとなります。</li>
+      <li>先に進むことができなくなったら、リセットボタンでやり直してください。</li>
+    </ul>
+  </div>
 </div>
-        
   <script src="js/script.js"></script>
 </body>
 </html>

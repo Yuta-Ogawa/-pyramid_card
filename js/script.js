@@ -1,5 +1,26 @@
 'use strict';
 
+const start = document.getElementById('start');
+const open = document.getElementById('open');
+const mask = document.getElementById('mask');
+const modal = document.getElementById('modal');
+
+
+
+function myfunc(value) {
+  start.classList.remove('inactive');
+
+start.addEventListener('click', () => {
+  if(start.classList.contains('inactive') === true) {
+    return;
+  }
+  modal.classList.add('hidden');
+  mask.classList.add('hidden');
+
+
+
+  
+
 const cards = shuffle([
   ['img/torannpu-illust1.png', 1],
   ['img/torannpu-illust2.png', 2],
@@ -59,6 +80,8 @@ const cardback = 'img/torannpu-illust54.png';
 
 const pyramid = 7;
 
+const maxhand = value;
+
 
 function shuffle(arr) {
   for(let i = arr.length-1; i>0; i--) {
@@ -86,7 +109,7 @@ for (let i = 0; i<row1Card.length; i++) {
   img.src=row1Card[i][0];
   img.alt =row1Card[i][1];
   const li = document.createElement('li');
-  li.className='row1card' + i;
+  li.className='row1card' + i + ' zindex7';
   li.classList.add('open');
   li.appendChild(img);
   document.querySelector('.row1').appendChild(li);
@@ -99,7 +122,7 @@ for (let i = 0; i<row2Card.length; i++) {
   img.src=cardback;
   
   const li = document.createElement('li');
-  li.className='row2card' + i + ' back';
+  li.className='row2card' + i + ' back' + ' zindex6';
   li.appendChild(img);
   document.querySelector('.row2').appendChild(li);
 
@@ -185,7 +208,7 @@ for (let i = 0; i<row3Card.length; i++) {
   img.src=cardback;
   
   const li = document.createElement('li');
-  li.className='row3card' + i + ' back';
+  li.className='row3card' + i + ' back' + ' zindex5';
   li.appendChild(img);
   document.querySelector('.row3').appendChild(li);
 
@@ -254,7 +277,7 @@ for (let i = 0; i<row4Card.length; i++) {
   img.src=cardback;
   
   const li = document.createElement('li');
-  li.className='row4card' + i + ' back';
+  li.className='row4card' + i + ' back' + ' zindex4';
   li.appendChild(img);
   document.querySelector('.row4').appendChild(li);
 
@@ -310,7 +333,7 @@ for (let i = 0; i<row5Card.length; i++) {
   img.src=cardback;
   
   const li = document.createElement('li');
-  li.className='row5card' + i + ' back';
+  li.className='row5card' + i + ' back' + ' zindex3';
   li.appendChild(img);
   document.querySelector('.row5').appendChild(li);
 
@@ -353,7 +376,7 @@ for (let i = 0; i<row6Card.length; i++) {
   img.src=cardback;
   
   const li = document.createElement('li');
-  li.className='row6card' + i + ' back';
+  li.className='row6card' + i + ' back' + ' zindex2';
   li.appendChild(img);
   document.querySelector('.row6').appendChild(li);
 
@@ -387,7 +410,7 @@ for (let i = 0; i<row7Card.length; i++) {
   img.src=cardback;
   
   const li = document.createElement('li');
-  li.className='row7card' + i + ' back';
+  li.className='row7card' + i + ' back' + ' zindex1';
   li.appendChild(img);
   document.querySelector('.row7').appendChild(li);
 
@@ -434,9 +457,26 @@ for(let i= 0; i<deck.length; i++){
 
 let number = 28;
 let decknumber = 0;
+let p = document.createElement('p');
+deckback.appendChild(p);
+p.classList.add('remain');
+p.textContent = '残り山札' + 25+' 枚';
+
+let button = document.createElement('button');
+let deckclass = document.querySelector('.deck');
+deckclass.appendChild(button);
+button.textContent = 'RESET';
+button.addEventListener('click', () => {
+  window.location.reload();
+});
+
+let deckbackimg = document.querySelector('.deckback > img');
 const addCount = () => {
   const li = document.querySelectorAll('li');
-
+if(number<52){
+  
+  let remain = cards.length-number;
+  p.textContent = '残り山札' + remain + ' 枚';
   li[number].classList.remove('dn');
 
   number++;
@@ -446,12 +486,16 @@ const addCount = () => {
   //   decknumber;
   // };
   
-  if(decknumber>2) {
+  if(decknumber>maxhand - 1) {
     deckback.classList.add('disabled');
     
   }
+}else {
+  deckback.classList.add('remove');
+}
 };
-deckback.addEventListener("click", addCount);
+deckbackimg.addEventListener("click", addCount);
+
 
 // function countUp(count) {
    
@@ -470,7 +514,8 @@ deckback.addEventListener("click", addCount);
 let cols = document.querySelectorAll('li');
 
 
-for (let i = 0; i < 51; i++) {
+
+for (let i = 0; i < cards.length; i++) {
 cols[i].addEventListener('click', () => {
  
 
@@ -497,8 +542,12 @@ cols[i].addEventListener('click', () => {
                           if(parseInt(el[0].alt) ===13){
                             if(choice[0].classList.contains('deckopen')) {
                               choice[0].classList.add('dn');
+                              choice[0].classList.add('sendback');
                               decknumber -= 1;
                               deckback.classList.remove('disabled');
+                              if(cols[0].classList.contains('remove')) {
+                                showResult();
+                              }
                               
                               
                             }
@@ -506,6 +555,8 @@ cols[i].addEventListener('click', () => {
                            
                             choice[0].classList.add('remove');
                             choice[0].classList.remove('choice');
+                            choice[0].classList.add('sendback');
+                            
 
 
                               //  2枚で13の場合
@@ -526,7 +577,9 @@ cols[i].addEventListener('click', () => {
                                     choice[1].classList.remove('choice');
                                     decknumber -= 2;
                                     deckback.classList.remove('disabled');
-                                    
+                                    if(cols[0].classList.contains('remove')) {
+                                      showResult();
+                                    }
                                     el=[];
                                     
 
@@ -535,8 +588,12 @@ cols[i].addEventListener('click', () => {
                                     choice[0].classList.remove('choice');
                                     choice[1].classList.add('remove');
                                     choice[1].classList.remove('choice');
+                                    choice[1].classList.add('sendback');
                                     decknumber -= 1;
                                     deckback.classList.remove('disabled');
+                                    if(cols[0].classList.contains('remove')) {
+                                      showResult();
+                                    }
                                     
                                     el=[];
                                   
@@ -546,9 +603,12 @@ cols[i].addEventListener('click', () => {
                                       choice[1].classList.remove('choice');
                                       choice[0].classList.add('remove');
                                       choice[0].classList.remove('choice');
+                                      choice[0].classList.add('sendback');
                                       decknumber -= 1;
                                       deckback.classList.remove('disabled');
-                                      
+                                      if(cols[0].classList.contains('remove')) {
+                                        showResult();
+                                      }
                                       el=[];
                                      
 
@@ -558,6 +618,8 @@ cols[i].addEventListener('click', () => {
                                       choice[1].classList.add('remove');
                                       choice[0].classList.remove('choice');
                                       choice[1].classList.remove('choice');
+                                      choice[0].classList.add('sendback');
+                                      choice[1].classList.add('sendback');
 
                                 }
 
@@ -570,15 +632,29 @@ cols[i].addEventListener('click', () => {
 
       }
     });
+
+    
   }
 
  
 
 
 
+});
+
+const explainbtn = document.getElementById('explainbtn');
+const explain =  document.querySelector('.explain');
 
 
+explainbtn.addEventListener('click', () => {
+  explain.classList.toggle('explain-open');
+  explain.classList.toggle('explain');
+});
 
+}
 
+ function showResult() {
+   alert('おめでとうございます！クリアです！');
+ }
 
 
